@@ -4,6 +4,30 @@
         <name>Destiny.Core.Flow.API</name>
     </assembly>
     <members>
+        <member name="T:Destiny.Core.Flow.API.Controllers.AuditLogController">
+            <summary>
+            审计日志
+            </summary>
+        </member>
+        <member name="M:Destiny.Core.Flow.API.Controllers.AuditLogController.GetAuditLogPageAsync(Destiny.Core.Flow.Filter.PageRequest)">
+            <summary>
+            异步得到功能分页
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Destiny.Core.Flow.API.Controllers.AuditLogController.GetAuditEntryListByAuditLogIdAsync(System.Nullable{System.Guid})">
+            <summary>
+            获取操作实体列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Destiny.Core.Flow.API.Controllers.AuditLogController.GetAuditEntryListByAuditEntryIdAsync(System.Nullable{System.Guid})">
+            <summary>
+            获取实体属性列表
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Destiny.Core.Flow.API.Controllers.DataDictionary.DataDictionaryController.GetPageListAsync(Destiny.Core.Flow.Filter.PageRequest)">
             <summary>
             分页获取数据字典
@@ -95,11 +119,18 @@
             身份管理
             </summary>
         </member>
-        <member name="M:Destiny.Core.Flow.API.Controllers.IdentityController.LoginAsync(Destiny.Core.Flow.Dtos.Identitys.LoginDto)">
+        <member name="M:Destiny.Core.Flow.API.Controllers.IdentityController.LoginAsync(Destiny.Core.Flow.Dtos.LoginDto)">
             <summary>
             登录
             </summary>
             <param name="loginDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Destiny.Core.Flow.API.Controllers.IdentityController.ChangePassword(Destiny.Core.Flow.Dtos.ChangePassInputDto)">
+            <summary>
+            更新密码
+            </summary>
+            <param name="dto"></param>
             <returns></returns>
         </member>
         <member name="M:Destiny.Core.Flow.API.Controllers.Menu.MenuController.GetTableAsync">
@@ -148,6 +179,12 @@
         <member name="M:Destiny.Core.Flow.API.Controllers.Menu.MenuController.GetMenuChildrenButtonAsync(System.Nullable{System.Guid})">
             <summary>
             异步得到菜单下的按钮
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Destiny.Core.Flow.API.Controllers.Menu.MenuController.GetMenuListAsync">
+            <summary>
+            获取登录用户权限菜单
             </summary>
             <returns></returns>
         </member>

@@ -14,8 +14,1061 @@ namespace Destiny.Core.Flow.Model.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.6")
+                .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ApiResource", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("AllowedAccessTokenSigningAlgorithms")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatorUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<bool>("Enabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("LastAccessed")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("LastModifierUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<bool>("NonEditable")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("ShowInDiscoveryDocument")
+                        .HasColumnType("tinyint(1)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ApiResource");
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ApiResourceClaim", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ApiResourceId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatorUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid?>("LastModifierUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApiResourceId");
+
+                    b.ToTable("ApiResourceClaim");
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ApiResourceProperty", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ApiResourceId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatorUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Key")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<Guid?>("LastModifierUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApiResourceId");
+
+                    b.ToTable("ApiResourceProperty");
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ApiResourceScope", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ApiResourceId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatorUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid?>("LastModifierUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Scope")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApiResourceId");
+
+                    b.ToTable("ApiResourceScope");
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ApiResourceSecret", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ApiResourceId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatorUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<DateTime?>("Expiration")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid?>("LastModifierUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApiResourceId");
+
+                    b.ToTable("ApiResourceSecret");
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ApiScope", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatorUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<bool>("Emphasize")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("Enabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid?>("LastModifierUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<bool>("Required")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("ShowInDiscoveryDocument")
+                        .HasColumnType("tinyint(1)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ApiScope");
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ApiScopeClaim", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatorUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid?>("LastModifierUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("ScopeId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ScopeId");
+
+                    b.ToTable("ApiScopeClaim");
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ApiScopeProperty", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatorUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Key")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<Guid?>("LastModifierUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("ScopeId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ScopeId");
+
+                    b.ToTable("ApiScopeProperty");
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.Client", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("AbsoluteRefreshTokenLifetime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(2592000);
+
+                    b.Property<int>("AccessTokenLifetime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(3600);
+
+                    b.Property<int>("AccessTokenType")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("AllowAccessTokensViaBrowser")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("AllowOfflineAccess")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("AllowPlainTextPkce")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("AllowRememberConsent")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("AllowedIdentityTokenSigningAlgorithms")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<bool>("AlwaysIncludeUserClaimsInIdToken")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("AlwaysSendClientClaims")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("AuthorizationCodeLifetime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(300);
+
+                    b.Property<bool>("BackChannelLogoutSessionRequired")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("BackChannelLogoutUri")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("ClientClaimsPrefix")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4")
+                        .HasDefaultValue("client_");
+
+                    b.Property<string>("ClientId")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("ClientName")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("ClientUri")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int?>("ConsentLifetime")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatorUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("DeviceCodeLifetime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(300);
+
+                    b.Property<bool>("EnableLocalLogin")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(true);
+
+                    b.Property<bool>("Enabled")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(true);
+
+                    b.Property<bool>("FrontChannelLogoutSessionRequired")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("FrontChannelLogoutUri")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("IdentityTokenLifetime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(300);
+
+                    b.Property<bool>("IncludeJwtId")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("LastAccessed")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("LastModifierUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("LogoUri")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<bool>("NonEditable")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("PairWiseSubjectSalt")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("ProtocolType")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4")
+                        .HasDefaultValue("oidc");
+
+                    b.Property<int>("RefreshTokenExpiration")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(-1);
+
+                    b.Property<int>("RefreshTokenUsage")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(-1);
+
+                    b.Property<bool>("RequireClientSecret")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(true);
+
+                    b.Property<bool>("RequireConsent")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("RequirePkce")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(true);
+
+                    b.Property<bool>("RequireRequestObject")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("SlidingRefreshTokenLifetime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(2592000);
+
+                    b.Property<bool>("UpdateAccessTokenClaimsOnRefresh")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("UserCodeType")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int?>("UserSsoLifetime")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Client");
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ClientClaim", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatorUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid?>("LastModifierUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("ClientClaim");
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ClientCorsOrigin", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatorUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid?>("LastModifierUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Origin")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("ClientCorsOrigin");
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ClientGrantType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatorUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("GrantType")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid?>("LastModifierUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("ClientGrantType");
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ClientIdPRestriction", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatorUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid?>("LastModifierUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Provider")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("ClientIdPRestriction");
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ClientPostLogoutRedirectUri", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatorUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid?>("LastModifierUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("PostLogoutRedirectUri")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("ClientPostLogoutRedirectUri");
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ClientProperty", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatorUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Key")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<Guid?>("LastModifierUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("ClientProperty");
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ClientRedirectUri", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatorUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid?>("LastModifierUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("RedirectUri")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("ClientRedirectUri");
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ClientScope", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatorUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid?>("LastModifierUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Scope")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("ClientScope");
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ClientSecret", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatorUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<DateTime?>("Expiration")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid?>("LastModifierUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("ClientSecret");
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.DeviceFlowCodes", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("ClientId")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<DateTime?>("ConsumedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatorUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Data")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("DeviceCode")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<DateTime?>("Expiration")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid?>("LastModifierUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("SessionId")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("SubjectId")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("UserCode")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DeviceFlowCodes");
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.IdentityResource", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatorUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<bool>("Emphasize")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("Enabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid?>("LastModifierUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<bool>("NonEditable")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("Required")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("ShowInDiscoveryDocument")
+                        .HasColumnType("tinyint(1)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IdentityResource");
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.IdentityResourceClaim", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatorUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("IdentityResourceId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid?>("LastModifierUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdentityResourceId");
+
+                    b.ToTable("IdentityResourceClaim");
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.IdentityResourceProperty", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatorUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("IdentityResourceId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Key")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<Guid?>("LastModifierUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdentityResourceId");
+
+                    b.ToTable("IdentityResourceProperty");
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.PersistedGrant", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("ClientId")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<DateTime?>("ConsumedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatorUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Data")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<DateTime?>("Expiration")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Key")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<Guid?>("LastModifierUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("SessionId")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("SubjectId")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PersistedGrant");
+                });
 
             modelBuilder.Entity("Destiny.Core.Flow.Model.Entities.Dictionary.DataDictionaryEntity", b =>
                 {
@@ -40,11 +1093,11 @@ namespace Destiny.Core.Flow.Model.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<DateTime?>("LastModifierTime")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<Guid?>("LastModifierUserId")
                         .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<Guid>("ParentId")
                         .HasColumnType("char(36)");
@@ -97,11 +1150,11 @@ namespace Destiny.Core.Flow.Model.Migrations
                         .HasColumnType("tinyint(1)")
                         .HasDefaultValue(true);
 
-                    b.Property<DateTime?>("LastModifierTime")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<Guid?>("LastModifierUserId")
                         .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("LinkUrl")
                         .HasColumnType("varchar(500) CHARACTER SET utf8mb4")
@@ -150,11 +1203,11 @@ namespace Destiny.Core.Flow.Model.Migrations
                         .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false);
 
-                    b.Property<DateTime?>("LastModifierTime")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<Guid?>("LastModifierUserId")
                         .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -195,11 +1248,11 @@ namespace Destiny.Core.Flow.Model.Migrations
                         .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false);
 
-                    b.Property<DateTime?>("LastModifierTime")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<Guid?>("LastModifierUserId")
                         .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<Guid>("RoleId")
                         .HasColumnType("char(36)");
@@ -251,11 +1304,11 @@ namespace Destiny.Core.Flow.Model.Migrations
                     b.Property<bool>("IsSystem")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<DateTime?>("LastModifierTime")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<Guid?>("LastModifierUserId")
                         .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<bool>("LockoutEnabled")
                         .ValueGeneratedOnAdd()
@@ -329,11 +1382,11 @@ namespace Destiny.Core.Flow.Model.Migrations
                         .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false);
 
-                    b.Property<DateTime?>("LastModifierTime")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<Guid?>("LastModifierUserId")
                         .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("char(36)");
@@ -360,11 +1413,11 @@ namespace Destiny.Core.Flow.Model.Migrations
                         .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false);
 
-                    b.Property<DateTime?>("LastModifierTime")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<Guid?>("LastModifierUserId")
                         .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<Guid>("RoleId")
                         .HasColumnType("char(36)");
@@ -394,11 +1447,11 @@ namespace Destiny.Core.Flow.Model.Migrations
                         .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false);
 
-                    b.Property<DateTime?>("LastModifierTime")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<Guid?>("LastModifierUserId")
                         .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("LoginProvider")
                         .HasColumnType("varchar(450) CHARACTER SET utf8mb4")
@@ -451,11 +1504,11 @@ namespace Destiny.Core.Flow.Model.Migrations
                         .HasColumnType("tinyint(1)")
                         .HasDefaultValue(false);
 
-                    b.Property<DateTime?>("LastModifierTime")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<Guid?>("LastModifierUserId")
                         .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -509,11 +1562,11 @@ namespace Destiny.Core.Flow.Model.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<DateTime?>("LastModifierTime")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<Guid?>("LastModifierUserId")
                         .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<Guid>("MenuId")
                         .HasColumnType("char(36)");
@@ -554,11 +1607,11 @@ namespace Destiny.Core.Flow.Model.Migrations
                         .HasColumnType("char(36)")
                         .HasDefaultValue(new Guid("00000000-0000-0000-0000-000000000000"));
 
-                    b.Property<DateTime?>("LastModifierTime")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<Guid?>("LastModifierUserId")
                         .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("LastModifionTime")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -596,6 +1649,159 @@ namespace Destiny.Core.Flow.Model.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RoleMenu");
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ApiResourceClaim", b =>
+                {
+                    b.HasOne("Destiny.Core.Flow.Model.DestinyIdentityServer4.ApiResource", "ApiResource")
+                        .WithMany("UserClaims")
+                        .HasForeignKey("ApiResourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ApiResourceProperty", b =>
+                {
+                    b.HasOne("Destiny.Core.Flow.Model.DestinyIdentityServer4.ApiResource", "ApiResource")
+                        .WithMany("Properties")
+                        .HasForeignKey("ApiResourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ApiResourceScope", b =>
+                {
+                    b.HasOne("Destiny.Core.Flow.Model.DestinyIdentityServer4.ApiResource", "ApiResource")
+                        .WithMany("Scopes")
+                        .HasForeignKey("ApiResourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ApiResourceSecret", b =>
+                {
+                    b.HasOne("Destiny.Core.Flow.Model.DestinyIdentityServer4.ApiResource", "ApiResource")
+                        .WithMany("Secrets")
+                        .HasForeignKey("ApiResourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ApiScopeClaim", b =>
+                {
+                    b.HasOne("Destiny.Core.Flow.Model.DestinyIdentityServer4.ApiScope", "Scope")
+                        .WithMany("UserClaims")
+                        .HasForeignKey("ScopeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ApiScopeProperty", b =>
+                {
+                    b.HasOne("Destiny.Core.Flow.Model.DestinyIdentityServer4.ApiScope", "Scope")
+                        .WithMany("Properties")
+                        .HasForeignKey("ScopeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ClientClaim", b =>
+                {
+                    b.HasOne("Destiny.Core.Flow.Model.DestinyIdentityServer4.Client", null)
+                        .WithMany("Claims")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ClientCorsOrigin", b =>
+                {
+                    b.HasOne("Destiny.Core.Flow.Model.DestinyIdentityServer4.Client", "Client")
+                        .WithMany("AllowedCorsOrigins")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ClientGrantType", b =>
+                {
+                    b.HasOne("Destiny.Core.Flow.Model.DestinyIdentityServer4.Client", "Client")
+                        .WithMany("AllowedGrantTypes")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ClientIdPRestriction", b =>
+                {
+                    b.HasOne("Destiny.Core.Flow.Model.DestinyIdentityServer4.Client", "Client")
+                        .WithMany("IdentityProviderRestrictions")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ClientPostLogoutRedirectUri", b =>
+                {
+                    b.HasOne("Destiny.Core.Flow.Model.DestinyIdentityServer4.Client", "Client")
+                        .WithMany("PostLogoutRedirectUris")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ClientProperty", b =>
+                {
+                    b.HasOne("Destiny.Core.Flow.Model.DestinyIdentityServer4.Client", "Client")
+                        .WithMany("Properties")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ClientRedirectUri", b =>
+                {
+                    b.HasOne("Destiny.Core.Flow.Model.DestinyIdentityServer4.Client", "Client")
+                        .WithMany("RedirectUris")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ClientScope", b =>
+                {
+                    b.HasOne("Destiny.Core.Flow.Model.DestinyIdentityServer4.Client", "Client")
+                        .WithMany("AllowedScopes")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.ClientSecret", b =>
+                {
+                    b.HasOne("Destiny.Core.Flow.Model.DestinyIdentityServer4.Client", "Client")
+                        .WithMany("ClientSecrets")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.IdentityResourceClaim", b =>
+                {
+                    b.HasOne("Destiny.Core.Flow.Model.DestinyIdentityServer4.IdentityResource", "IdentityResource")
+                        .WithMany("UserClaims")
+                        .HasForeignKey("IdentityResourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Destiny.Core.Flow.Model.DestinyIdentityServer4.IdentityResourceProperty", b =>
+                {
+                    b.HasOne("Destiny.Core.Flow.Model.DestinyIdentityServer4.IdentityResource", "IdentityResource")
+                        .WithMany("Properties")
+                        .HasForeignKey("IdentityResourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

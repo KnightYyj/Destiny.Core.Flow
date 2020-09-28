@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Validation\TokenRequestBaseValidator.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<PackageReference Include="IdentityServer4" Version="4.1.0"></PackageReference>
+    <PackageReference Include="IdentityServer4.EntityFramework.Storage" Version="4.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Destiny.Core.Flow.Model\Destiny.Core.Flow.Model.csproj" />
+    <ProjectReference Include="..\Destiny.Core.Flow\Destiny.Core.Flow.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,21 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Destiny.Core.Flow.Entity;
+using Destiny.Core.Flow.Enums;
+using Destiny.Core.Flow.Exceptions;
+using Destiny.Core.Flow.Extensions;
+using Destiny.Core.Flow.Ui;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
 using System.Security.Principal;
-using Microsoft.Extensions.DependencyInjection;
-using Destiny.Core.Flow.Entity;
-using Destiny.Core.Flow.Extensions;
-using Destiny.Core.Flow.Ui;
-using Destiny.Core.Flow.Enums;
-using Destiny.Core.Flow.Exceptions;
+using System.Threading;
+using System.Threading.Tasks;
 using Z.EntityFramework.Plus;
-using Destiny.Core.Flow.EntityFrameworkCore;
 
 namespace Destiny.Core.Flow
 {
@@ -24,32 +22,35 @@ namespace Destiny.Core.Flow
        where TPrimaryKey : IEquatable<TPrimaryKey>
     {
         /// <summary>
-        /// 
         /// </summary>
         private readonly DbSet<TEntity> _dbSet = null;
+
         private readonly DbContext _dbContext = null;
 
-        ///
         private readonly ILogger _logger = null;
+
         private readonly IPrincipal _principal;
+
         public Repository(IServiceProvider serviceProvider)
         {
-            UnitOfWork=(serviceProvider.GetService(typeof(IUnitOfWork)) as IUnitOfWork);
+            UnitOfWork = (serviceProvider.GetService(typeof(IUnitOfWork)) as IUnitOfWork);
             _dbContext = UnitOfWork.GetDbContext();
             _dbSet = _dbContext.Set<TEntity>();
             _logger = serviceProvider.GetLogger<Repository<TEntity, TPrimaryKey>>();
-           _principal = serviceProvider.GetService<IPrincipal>();
+            _principal = serviceProvider.GetService<IPrincipal>();
         }
+
         #region 查询
 
         public virtual IUnitOfWork UnitOfWork { get; }
+
         /// <summary>
-        /// 获取 <typeparamref name="TEntity"/>不跟踪数据更改（NoTracking）的查询数据源
+        /// 获取 <typeparamref name="TEntity"/> 不跟踪数据更改（NoTracking）的查询数据源
         /// </summary>
         public virtual IQueryable<TEntity> Entities => _dbSet.AsNoTracking();
 
         /// <summary>
-        /// 获取 <typeparamref name="TEntity"/>跟踪数据更改（Tracking）的查询数据源
+        /// 获取 <typeparamref name="TEntity"/> 跟踪数据更改（Tracking）的查询数据源
         /// </summary>
         public virtual IQueryable<TEntity> TrackEntities => _dbSet;
 
@@ -66,7 +67,6 @@ namespace Destiny.Core.Flow
         /// <param name="primaryKey">主键</param>
         /// <returns>返回查询后实体</returns>
         public virtual async Task<TEntity> GetByIdAsync(TPrimaryKey primaryKey) => await _dbSet.FindAsync(primaryKey);
-
 
         /// <summary>
         /// 根据ID得到Dto实体
@@ -93,7 +93,6 @@ namespace Destiny.Core.Flow
             return this.Entities.Where(predicate);
         }
 
-
         /// <summary>
         /// 查询不跟踪数据源
         /// </summary>
@@ -108,7 +107,6 @@ namespace Destiny.Core.Flow
             return this.Entities.Where(predicate).Select(selector);
         }
 
-
         /// <summary>
         ///查询跟踪数据源
         /// </summary>
@@ -119,10 +117,11 @@ namespace Destiny.Core.Flow
             predicate.NotNull(nameof(predicate));
             return this.TrackEntities.Where(predicate);
         }
-        #endregion
 
+        #endregion 查询
 
         #region 添加
+
         /// <summary>
         /// 以异步DTO插入实体
         /// </summary>
@@ -137,7 +136,6 @@ namespace Destiny.Core.Flow
 
             try
             {
-
                 if (checkFunc.IsNotNull())
                 {
                     await checkFunc(dto);
@@ -162,16 +160,12 @@ namespace Destiny.Core.Flow
             }
             catch (AppException e)
             {
-
                 return new OperationResponse(e.Message, OperationResponseType.Error);
             }
             catch (Exception ex)
             {
-
                 return new OperationResponse(ex.Message, OperationResponseType.Error);
             }
-
-
         }
 
         /// <summary>
@@ -188,7 +182,6 @@ namespace Destiny.Core.Flow
             return await _dbContext.SaveChangesAsync();
         }
 
-
         /// <summary>
         /// 以异步批量插入实体
         /// </summary>
@@ -203,7 +196,6 @@ namespace Destiny.Core.Flow
             return await _dbContext.SaveChangesAsync();
         }
 
-
         /// <summary>
         /// 以批量插入实体
         /// </summary>
@@ -216,10 +208,10 @@ namespace Destiny.Core.Flow
             _dbSet.AddRange(entitys);
             return _dbContext.SaveChanges();
         }
-        #endregion
+
+        #endregion 添加
 
         #region 更新
-
 
         /// <summary>
         /// 以异步DTO更新实体
@@ -246,7 +238,6 @@ namespace Destiny.Core.Flow
                     await checkFunc(dto, entity);
                 }
 
-
                 entity = dto.MapTo(entity);
                 if (!updateFunc.IsNull())
                 {
@@ -259,15 +250,12 @@ namespace Destiny.Core.Flow
             }
             catch (AppException e)
             {
-
                 return new OperationResponse(e.Message, OperationResponseType.Error);
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
-
         }
 
         /// <summary>
@@ -283,7 +271,6 @@ namespace Destiny.Core.Flow
             int count = await _dbContext.SaveChangesAsync();
             return count;
         }
-
 
         /// <summary>
         /// 同步更新
@@ -308,18 +295,14 @@ namespace Destiny.Core.Flow
         /// <returns></returns>
         public virtual async Task<int> UpdateBatchAsync(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, TEntity>> updateExpression, CancellationToken cancellationToken = default)
         {
-
-
             predicate.NotNull(nameof(predicate));
             predicate.NotNull(nameof(updateExpression));
             updateExpression = CheckUpdate(updateExpression);
-    
-           
+
             return await this.TrackEntities.Where(predicate).UpdateAsync(updateExpression, cancellationToken);
         }
-        #endregion
 
-
+        #endregion 更新
 
         #region 删除
 
@@ -359,10 +342,8 @@ namespace Destiny.Core.Flow
             return count;
         }
 
-
         public virtual int Delete(params TEntity[] entitys)
         {
-
             foreach (var entity in entitys)
             {
                 CheckDelete(entity);
@@ -377,7 +358,6 @@ namespace Destiny.Core.Flow
         /// <returns>操作影响的行数</returns>
         public virtual async Task<int> DeleteBatchAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
         {
-
             predicate.NotNull(nameof(predicate));
             if (typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
             {
@@ -399,18 +379,15 @@ namespace Destiny.Core.Flow
                    new ParameterExpression[] { parameterExpression }
                 );
 
-               return await TrackEntities.Where(predicate).UpdateAsync(updateExpression, cancellationToken);
+                return await TrackEntities.Where(predicate).UpdateAsync(updateExpression, cancellationToken);
             }
             return await TrackEntities.Where(predicate).DeleteAsync(cancellationToken);
         }
 
-
-
-
-        #endregion
-
+        #endregion 删除
 
         #region 其他
+
         /// <summary>
         /// 检查删除
         /// </summary>
@@ -431,7 +408,6 @@ namespace Destiny.Core.Flow
         /// <returns></returns>
         private void CheckDelete(TEntity entity)
         {
-
             if (typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
             {
                 ISoftDelete softDeletabl = (ISoftDelete)entity;
@@ -445,9 +421,6 @@ namespace Destiny.Core.Flow
                 this._dbContext.Remove(entity);
             }
         }
-
-
-
 
         ///// <summary>
         ///// 检查软删除接口
@@ -474,7 +447,6 @@ namespace Destiny.Core.Flow
 
         private TEntity[] CheckInsert(TEntity[] entitys)
         {
-
             for (int i = 0; i < entitys.Length; i++)
             {
                 var entity = entitys[i];
@@ -483,7 +455,6 @@ namespace Destiny.Core.Flow
             return entitys;
         }
 
-
         /// <summary>
         /// 检查创建时间
         /// </summary>
@@ -491,7 +462,6 @@ namespace Destiny.Core.Flow
         /// <returns></returns>
         private TEntity CheckInsert(TEntity entity)
         {
-
             entity = CheckICreatedTime(entity);
 
             var creationAudited = entity.GetType().GetInterface(/*$"ICreationAudited`1"*/typeof(ICreationAudited<>).Name);
@@ -505,11 +475,9 @@ namespace Destiny.Core.Flow
             if (fullName == typeof(Guid).FullName)
             {
                 entity = CheckICreationAudited<Guid>(entity);
-
             }
 
             return entity;
-
         }
 
         private TEntity CheckICreationAudited<TUserKey>(TEntity entity)
@@ -545,7 +513,6 @@ namespace Destiny.Core.Flow
         /// <returns></returns>
         private TEntity[] CheckUpdate(TEntity[] entitys)
         {
-
             for (int i = 0; i < entitys.Length; i++)
             {
                 var entity = entitys[i];
@@ -561,7 +528,6 @@ namespace Destiny.Core.Flow
         /// <returns></returns>
         private TEntity CheckUpdate(TEntity entity)
         {
-
             var creationAudited = entity.GetType().GetInterface(/*$"ICreationAudited`1"*/typeof(IModificationAudited<>).Name);
             if (creationAudited == null)
             {
@@ -573,12 +539,11 @@ namespace Destiny.Core.Flow
             if (fullName == typeof(Guid).FullName)
             {
                 entity = CheckIModificationAudited<Guid>(entity);
-
             }
 
             return entity;
-
         }
+
         /// <summary>
         /// 检查最后修改时间
         /// </summary>
@@ -595,7 +560,7 @@ namespace Destiny.Core.Flow
 
             IModificationAudited<TUserKey> entity1 = (IModificationAudited<TUserKey>)entity;
             entity1.LastModifierUserId = _principal?.Identity?.GetUesrId<TUserKey>();
-            entity1.LastModifierTime = DateTime.Now;
+            entity1.LastModifionTime = DateTime.Now;
             return (TEntity)entity1;
         }
 
@@ -606,7 +571,6 @@ namespace Destiny.Core.Flow
         /// <returns></returns>
         private Expression<Func<TEntity, TEntity>> CheckUpdate(Expression<Func<TEntity, TEntity>> updateExpression)
         {
-
             var creationAudited = typeof(TEntity).GetType().GetInterface(/*$"ICreationAudited`1"*/typeof(IModificationAudited<>).Name);
             if (creationAudited == null)
             {
@@ -618,11 +582,9 @@ namespace Destiny.Core.Flow
             if (fullName == typeof(Guid).FullName)
             {
                 return CheckIModificationAudited<Guid>(updateExpression);
-
             }
 
             return updateExpression;
-
         }
 
         /// <summary>
@@ -645,9 +607,8 @@ namespace Destiny.Core.Flow
             var propertyInfos = typeof(IModificationAudited<TUserKey>).GetProperties();
             if (memberBindings?.Count > 0)
             {
-
                 var propertyNames = propertyInfos.Select(o => o.Name);
-              
+
                 foreach (var memberBinding in memberBindings.Where(o => !propertyNames.Contains(o.Member.Name)))
                 {
                     newMemberBindings.Add(memberBinding);
@@ -657,7 +618,7 @@ namespace Destiny.Core.Flow
             {
                 var propertyName = propertyInfo.Name;
                 ConstantExpression constant = Expression.Constant(DateTime.Now);
-                if (propertyName == nameof(IModificationAudited<TUserKey>.LastModifierTime))
+                if (propertyName == nameof(IModificationAudited<TUserKey>.LastModifionTime))
                 {
                     var memberAssignment = Expression.Bind(propertyInfo, constant); //绑定属性
                     newMemberBindings.Add(memberAssignment);
@@ -670,7 +631,6 @@ namespace Destiny.Core.Flow
                 }
             }
 
-
             //创建实体
             var newEntity = Expression.New(typeof(TEntity));
             var memberInit = Expression.MemberInit(newEntity, newMemberBindings.ToArray()); //成员初始化
@@ -681,16 +641,8 @@ namespace Destiny.Core.Flow
             );
 
             return updateExpression1;
-
-
         }
 
-        #endregion
-
-
-
-
+        #endregion 其他
     }
 }
-
-

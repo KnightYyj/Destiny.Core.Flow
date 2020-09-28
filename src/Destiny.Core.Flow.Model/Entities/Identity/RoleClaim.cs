@@ -1,19 +1,15 @@
 ﻿using Destiny.Core.Flow.Entity;
 using Destiny.Core.Flow.Identity;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 
 namespace Destiny.Core.Flow.Model.Entities.Identity
 {
     [DisplayName("角色声明")]
-    public  class RoleClaim: RoleClaimBase<Guid>, IFullAuditedEntity<Guid>
+    public class RoleClaim : RoleClaimBase<Guid>, IFullAuditedEntity<Guid>
     {
-
-
         /// <summary>
-        ///  获取或设置 最后修改用户
+        /// 获取或设置 最后修改用户
         /// </summary>
 
         [DisplayName("最后修改用户")]
@@ -23,7 +19,7 @@ namespace Destiny.Core.Flow.Model.Entities.Identity
         /// 获取或设置 最后修改时间
         /// </summary>
         [DisplayName("最后修改时间")]
-        public virtual DateTime? LastModifierTime { get; set; }
+        public virtual DateTime? LastModifionTime { get; set; }
 
         /// <summary>
         ///获取或设置 是否删除

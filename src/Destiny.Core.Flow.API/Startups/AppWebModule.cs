@@ -4,45 +4,43 @@ using Destiny.Core.Flow.Caching.CSRedis;
 using Destiny.Core.Flow.Dependency;
 using Destiny.Core.Flow.Events;
 using Destiny.Core.Flow.Extensions;
+using Destiny.Core.Flow.Model;
 using Destiny.Core.Flow.Modules;
 using Destiny.Core.Flow.Options;
 using Destiny.Core.Flow.Swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
-using System.Threading.Tasks;
-using System.Reflection;
-using Microsoft.Extensions.Configuration;
 
 namespace Destiny.Core.Flow.API.Startups
 {
-    [DependsOn(typeof(DependencyAppModule), 
+    [DependsOn(typeof(DependencyAppModule),
                typeof(SwaggerModule),
                typeof(IdentityModule),
                typeof(FunctionModule),
                typeof(EventBusAppModule),
                typeof(EntityFrameworkCoreMySqlModule),
                typeof(AutoMapperModule),
-               typeof(CSRedisModule)
+               typeof(CSRedisModule),
+               typeof(MongoDBModelule),
+        typeof(MigrationModuleBase)
         )]
-    public class AppWebModule: AppModule
+    public class AppWebModule : AppModule
     {
         private string _corePolicyName = string.Empty;
 
 
         public override void ConfigureServices(ConfigureServicesContext context)
         {
-
+            context.Services.AddTransient(typeof(Lazy<>), typeof(LazyFactory<>));
             var configuration = context.GetConfiguration();
             context.Services.Configure<AppOptionSettings>(configuration.GetSection("Destiny"));
-           
-             var settings =context.GetConfiguration<AppOptionSettings>("Destiny");
-             context.Services.AddObjectAccessor<AppOptionSettings>(settings);
+
+            var settings = context.GetConfiguration<AppOptionSettings>("Destiny");
+            context.Services.AddObjectAccessor<AppOptionSettings>(settings);
             if (!settings.Cors.PolicyName.IsNullOrEmpty() && !settings.Cors.Url.IsNullOrEmpty()) //添加跨域
             {
                 _corePolicyName = settings.Cors.PolicyName;
@@ -58,11 +56,12 @@ namespace Destiny.Core.Flow.API.Startups
                 });
             }
             context.Services.AddHttpContextAccessor();
-            context.Services.AddControllers(o => {
+            context.Services.AddControllers(o =>
+            {
 
                 o.SuppressAsyncSuffixInActionNames = false;
                 o.Filters.Add<PermissionAuthorizationFilter>();
-                o.Filters.Add<AuditLogFilter>(); 
+                o.Filters.Add<AuditLogFilter>();
             })
                 .AddNewtonsoftJson(options =>
                 {

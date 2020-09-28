@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Destiny.Core.Flow.Mapping
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class AutoMapToAttribute : AutoMappAttribute
+    public class AutoMapToAttribute : AutoMappingAttribute
     {
         public override AutoMapDirection Direciton
         {

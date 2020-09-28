@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Destiny.Core.Flow.Dtos.Identitys
+namespace Destiny.Core.Flow.Dtos
 {
     /// <summary>
     /// 登录Dto
@@ -21,6 +18,5 @@ namespace Destiny.Core.Flow.Dtos.Identitys
         /// </summary>
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
     }
 }

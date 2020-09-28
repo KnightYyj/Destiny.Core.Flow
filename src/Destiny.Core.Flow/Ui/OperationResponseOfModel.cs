@@ -1,12 +1,12 @@
 ﻿using Destiny.Core.Flow.Enums;
 using Destiny.Core.Flow.Filter;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Destiny.Core.Flow.Ui
 {
-   public class OperationResponse<TData>: ResultBase<TData>, IHasResultType<OperationResponseType>
+    /// <summary>
+    /// 有重复代码想办法解决。。
+    /// </summary>
+    public class OperationResponse<TData> : ResultBase<TData>, IHasResultType<OperationResponseType>
     {
 
         public OperationResponse() : this(OperationResponseType.Success)
@@ -34,45 +34,76 @@ namespace Destiny.Core.Flow.Ui
 
 
 
-   
+
 
         public virtual OperationResponseType Type { get; set; }
 
-   
+
         public override bool Success => Type == OperationResponseType.Success;
 
 
+
         /// <summary>
-        /// 是否成功
+        /// 成功
         /// </summary>
-        /// <param name="message"></param>
-        public void IsSuccess(string message)
+        public static OperationResponse<TData> Ok()
         {
-            this.IsSuccess(message,default(TData));
+            return Ok(string.Empty, default(TData));
         }
-        public void IsSuccess(TData data)
+        /// <summary>
+        /// 成功
+        /// </summary>
+        /// <param name="message">提示消息</param>
+        public static OperationResponse<TData> Ok(string message)
         {
-            this.IsSuccess(string.Empty,data);
-        }
-
-        public void IsSuccess(string message,TData data)
-        {
-            this.Type = OperationResponseType.Success;
-            this.Message = message;
-            this.Data = data;
+            return Ok(message, default(TData));
         }
 
-   
-
-
-        public bool Error()
+        /// <summary>
+        /// 成功
+        /// </summary>
+        /// <param name="data">返回成功数据</param>
+        /// <returns></returns>
+        public static OperationResponse<TData> Ok(TData data)
         {
-            return Type != OperationResponseType.Success;
+            return Ok(string.Empty, data);
         }
+
+        /// <summary>
+        /// 成功
+        /// </summary>
+        /// <param name="message">提示消息</param>
+        /// <param name="data">返回成功数据</param>
+        /// <returns></returns>
+        public static OperationResponse<TData> Ok(string message, TData data)
+        {
+
+            return new OperationResponse<TData>(message, data, OperationResponseType.Success);
+        }
+
+
+
+        public static OperationResponse<TData> Error(string message)
+        {
+            return Error(message, default(TData));
+        }
+        public static OperationResponse<TData> Error(TData data)
+        {
+            return Error(string.Empty, data);
+        }
+        public static OperationResponse<TData> Error(string message, TData data)
+        {
+
+            return new OperationResponse<TData>(message, data, OperationResponseType.Error);
+        }
+
+
+
 
         public bool Exp()
         {
             return Type == OperationResponseType.Exp;
         }
+
     }
 }

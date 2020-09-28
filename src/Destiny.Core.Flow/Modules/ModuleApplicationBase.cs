@@ -7,8 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
-using System.Text;
 
 namespace Destiny.Core.Flow.Modules
 {
@@ -20,7 +18,7 @@ namespace Destiny.Core.Flow.Modules
 
         public IServiceProvider ServiceProvider { get; set; }
         public IReadOnlyList<IAppModule> Modules { get; }
-        private  List<IAppModule> _source= new List<IAppModule>();
+        private List<IAppModule> _source = new List<IAppModule>();
 
         public ModuleApplicationBase(Type startupModuleType, IServiceCollection services)
         {
@@ -31,17 +29,21 @@ namespace Destiny.Core.Flow.Modules
             services.AddSingleton<IModuleApplication>(this);
             services.TryAddObjectAccessor<IServiceProvider>();
             _source = this.GetAllModule(services);
-           
+
             Modules = LoadModules();
         }
-
+        /// <summary>
+        /// 获取所有模块
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
         private List<IAppModule> GetAllModule(IServiceCollection services)
         {
-          var typeFinder=   services.GetOrAddSingletonService<ITypeFinder, TypeFinder>();
-          var typs=  typeFinder.Find(o=> AppModule.IsAppModule(o));
-      
-          var modules= typs.Select(o => CreateModule(services, o)).Distinct();
-          return modules.ToList();
+            var typeFinder = services.GetOrAddSingletonService<ITypeFinder, TypeFinder>();
+            var typs = typeFinder.Find(o => AppModule.IsAppModule(o));
+
+            var modules = typs.Select(o => CreateModule(services, o)).Distinct();
+            return modules.ToList();
         }
 
         protected virtual void SetServiceProvider(IServiceProvider serviceProvider)
@@ -49,6 +51,10 @@ namespace Destiny.Core.Flow.Modules
             ServiceProvider = serviceProvider;
             ServiceProvider.GetRequiredService<ObjectAccessor<IServiceProvider>>().Value = ServiceProvider;
         }
+        /// <summary>
+        /// 获取需要加载的模块
+        /// </summary>
+        /// <returns></returns>
         private IReadOnlyList<IAppModule> LoadModules()
         {
             List<IAppModule> modules = new List<IAppModule>();
@@ -58,10 +64,12 @@ namespace Destiny.Core.Flow.Modules
             {
                 throw new Exception($"类型为“{StartupModuleType.FullName}”的模块实例无法找到");
             }
+
+
             modules.Add(module);
 
             var dependeds = module.GetDependedTypes();
-            foreach (var dependType in dependeds.Where(o=> AppModule.IsAppModule(o)))
+            foreach (var dependType in dependeds.Where(o => AppModule.IsAppModule(o)))
             {
                 var dependModule = _source.ToList().Find(m => m.GetType() == dependType);
                 if (dependModule == null)
@@ -75,17 +83,22 @@ namespace Destiny.Core.Flow.Modules
             return modules;
 
         }
-
+        /// <summary>
+        /// 注册模块
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="moduleType"></param>
+        /// <returns></returns>
         private IAppModule CreateModule(IServiceCollection services, Type moduleType)
         {
 
-           var module= /*(IAppModule)Activator.CreateInstance(moduleType)*/(IAppModule)Expression.Lambda(Expression.New(moduleType)).Compile().DynamicInvoke();
-           services.AddSingleton(moduleType, module);
+            var module = (IAppModule)Expression.Lambda(Expression.New(moduleType)).Compile().DynamicInvoke();
+            services.AddSingleton(moduleType, module);
             return module;
         }
         public virtual void Dispose()
         {
-           
+
         }
     }
 }

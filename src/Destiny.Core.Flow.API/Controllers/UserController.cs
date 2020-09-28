@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
-using Destiny.Core.Flow.AspNetCore.Api;
+﻿using Destiny.Core.Flow.AspNetCore.Api;
 using Destiny.Core.Flow.AspNetCore.Ui;
 using Destiny.Core.Flow.Dtos;
 using Destiny.Core.Flow.Filter;
 using Destiny.Core.Flow.IServices;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.Extensions.Logging;
-using Destiny.Core.Flow.ExpressionUtil;
-using Destiny.Core.Flow.Validation;
-using Microsoft.Extensions.DependencyInjection;
 using Destiny.Core.Flow.Permission;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
+using System.ComponentModel;
+using System.Threading.Tasks;
 namespace Destiny.Core.Flow.API.Controllers
 {
 
@@ -24,9 +17,8 @@ namespace Destiny.Core.Flow.API.Controllers
     /// 用户管理
     /// </summary>
     [Description("用户管理")]
-    [Authorize]
  
-    public class UserController : ApiControllerBase
+    public class UserController : AuthorizeControllerBase
     {
 
         private readonly IUserServices _userService = null;
@@ -48,7 +40,7 @@ namespace Destiny.Core.Flow.API.Controllers
         [HttpPost]
         [Description("异步创建用户")]
 
-        public async Task<AjaxResult> CreateAsync([FromBody]UserInputDto dto)
+        public async Task<AjaxResult> CreateAsync([FromBody] UserInputDto dto)
         {
 
             //var validator = _serviceProvider.GetService<IModelValidator<UserInputDto>>();
@@ -85,7 +77,7 @@ namespace Destiny.Core.Flow.API.Controllers
         public async Task<AjaxResult> DeleteAsync(Guid id)
         {
 
-         return (await _userService.DeleteAsync(id)).ToAjaxResult();
+            return (await _userService.DeleteAsync(id)).ToAjaxResult();
 
         }
 
@@ -103,7 +95,7 @@ namespace Destiny.Core.Flow.API.Controllers
 
         public async Task<AjaxResult> LoadAsync(Guid id)
         {
-    
+
             return (await _userService.LoadFormUserAsync(id)).ToAjaxResult();
 
         }
@@ -118,7 +110,7 @@ namespace Destiny.Core.Flow.API.Controllers
 
         //public async Task<AjaxResult> AddOrUpdateAsync([FromBody]UserInputDto dto)
         //{
-            
+
         //    //if (dto.Id == Guid.Empty)
         //    //{
         //    //    return (await _userService.CreateAsync(dto)).ToAjaxResult();
@@ -133,7 +125,7 @@ namespace Destiny.Core.Flow.API.Controllers
         /// <returns></returns>
         [HttpPost]
         [Description("异步得到分页")]
-        public async Task<PageList<UserOutputPageListDto>> GetUserPageAsync([FromBody]PageRequest request)
+        public async Task<PageList<UserOutputPageListDto>> GetUserPageAsync([FromBody] PageRequest request)
         {
             return (await _userService.GetUserPageAsync(request)).ToPageList();
         }
